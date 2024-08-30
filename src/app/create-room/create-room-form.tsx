@@ -42,7 +42,7 @@ export default function CreateRoomForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    const room = await createRoom(values);
+    await createRoom(values);
     // toast({
     //   title: "Room Created",
     //   description: "Your room was successfully created",

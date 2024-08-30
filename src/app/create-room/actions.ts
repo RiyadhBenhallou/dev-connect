@@ -3,7 +3,7 @@
 import { auth } from "@/auth";
 import { db } from "@/db";
 import { Room, room } from "@/db/schema";
-import { sql } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 
 export async function createRoom(roomData: Omit<Room, "userId" | "id">) {
   const session = await auth();
@@ -15,4 +15,5 @@ export async function createRoom(roomData: Omit<Room, "userId" | "id">) {
     ...roomData,
     userId: session?.user?.id!,
   });
+  revalidatePath("/");
 }
