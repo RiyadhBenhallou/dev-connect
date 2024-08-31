@@ -13,9 +13,9 @@ import {
 } from "@stream-io/video-react-sdk";
 import "@stream-io/video-react-sdk/dist/css/styles.css";
 import { Session } from "next-auth";
-import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
+import { generateTokenAction } from "./actions";
 
 export default function VideoPlayer({
   room,
@@ -46,7 +46,7 @@ export default function VideoPlayer({
     const client = new StreamVideoClient({
       apiKey,
       user,
-      token,
+      tokenProvider: () => generateTokenAction(),
     });
     setClient(client);
     client.connectUser(user, token);
