@@ -13,6 +13,7 @@ import {
 import { Room } from "@/db/schema";
 import { Github } from "lucide-react";
 import { getRooms } from "@/services/rooms";
+import TagsList from "@/components/tags-list";
 
 const RoomCard = ({ room }: { room: Room }) => {
   return (
@@ -21,17 +22,22 @@ const RoomCard = ({ room }: { room: Room }) => {
         <CardTitle>{room.name}</CardTitle>
         <CardDescription>{room.description}</CardDescription>
       </CardHeader>
-      <CardContent>
+      <CardContent className="flex flex-col gap-2">
         {room.githubRepo && (
-          <Link href={room.githubRepo} className="flex gap-2" target="_blank">
-            <Github size={20} />
-            Github Link
+          <Link
+            href={room.githubRepo}
+            className="flex items-center text-sm gap-2"
+            target="_blank"
+          >
+            <Github size={18} />
+            GitHub Link
           </Link>
         )}
+        <TagsList tagsString={room.tags} />
       </CardContent>
       <CardFooter>
         <Button asChild>
-          <Link href={`/room/${room.id}`}>Join Room</Link>
+          <Link href={`/rooms/${room.id}`}>Join Room</Link>
         </Button>
       </CardFooter>
     </Card>
