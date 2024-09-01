@@ -56,7 +56,8 @@ export default function VideoPlayer({
 
     return () => {
       client.disconnectUser();
-      call.leave();
+      setClient(null);
+      setCall(null);
     };
   }, [session, room]);
   return (

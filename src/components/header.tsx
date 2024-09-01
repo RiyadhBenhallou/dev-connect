@@ -13,9 +13,8 @@ import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import Link from "next/link";
 
-export function HeaderMenu() {
+function HeaderMenu() {
   const session = useSession();
-  // console.log(session);
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -32,17 +31,16 @@ export function HeaderMenu() {
       </DropdownMenuTrigger>
       <DropdownMenuContent className="w-56">
         <DropdownMenuGroup>
-          {session?.data ? (
-            <DropdownMenuItem onClick={() => signOut()}>
-              <LogIn size={20} className="mr-2" />
-              Sign out
-            </DropdownMenuItem>
-          ) : (
-            <DropdownMenuItem onClick={() => signIn("google")}>
-              <LogOut size={20} className="mr-2" />
-              Sign in
-            </DropdownMenuItem>
-          )}
+          <DropdownMenuItem
+            onClick={() =>
+              signOut({
+                callbackUrl: "/",
+              })
+            }
+          >
+            <LogIn size={20} className="mr-2" />
+            Sign out
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -50,6 +48,7 @@ export function HeaderMenu() {
 }
 
 const Header = () => {
+  const session = useSession();
   return (
     <header className="dark:bg-gray-900 bg-gray-100 py-2 container mx-auto">
       <div className="flex justify-between items-center">
@@ -59,7 +58,11 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          <HeaderMenu />
+          {session?.data?.user ? (
+            <HeaderMenu />
+          ) : (
+            <Button onClick={() => signIn("google")}>Sign In</Button>
+          )}
           <ModeToggle />
         </div>
       </div>

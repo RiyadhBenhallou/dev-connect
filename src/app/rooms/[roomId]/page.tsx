@@ -7,6 +7,7 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import VideoPlayer from "./video-player";
 import { auth } from "@/auth";
+import { CallParticipantsList } from "@stream-io/video-react-sdk";
 
 export default async function RoonPage({
   params: { roomId },
