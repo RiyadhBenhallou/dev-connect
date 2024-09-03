@@ -1,19 +1,18 @@
+import { auth } from "@/auth";
 import TagsList from "@/components/tags-list";
-import { Badge } from "@/components/ui/badge";
 import { getRoom } from "@/services/rooms";
-import { splitTags } from "@/utils/tags";
 import { Github } from "lucide-react";
+import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import VideoPlayer from "./video-player";
-import { auth } from "@/auth";
-import { CallParticipantsList } from "@stream-io/video-react-sdk";
 
 export default async function RoonPage({
   params: { roomId },
 }: {
   params: { roomId: string };
 }) {
+  unstable_noStore();
   const room = await getRoom(roomId);
   const session = await auth();
   console.log(session);

@@ -15,6 +15,7 @@ import { z } from "zod";
 // import { createRoomAction } from "./actions";
 import { Delete, Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect } from "react";
 // import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
@@ -32,6 +33,10 @@ export default function SearchBar() {
       query: query ?? "",
     },
   });
+
+  useEffect(() => {
+    form.setValue("query", query as string);
+  }, [query, form]);
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     if (values.query) {

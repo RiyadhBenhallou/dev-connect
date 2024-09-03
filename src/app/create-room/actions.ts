@@ -10,7 +10,6 @@ export async function createRoom(roomData: Omit<Room, "userId" | "id">) {
   if (!session) {
     throw new Error("You should be authenticated to do this action");
   }
-  console.log(session);
   await db.insert(room).values({
     ...roomData,
     userId: session?.user?.id!,

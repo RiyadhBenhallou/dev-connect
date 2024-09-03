@@ -15,21 +15,22 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 // import { createRoomAction } from "./actions";
-import { useRouter } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { createRoom } from "./actions";
 // import { useToast } from "@/components/ui/use-toast";
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
   description: z.string().min(1).max(250),
-  githubRepo: z.string().min(1).max(50),
-  tags: z.string().min(1).max(50),
+  githubRepo: z.string().min(1).max(100),
+  tags: z.string().min(1).max(100),
 });
 
 export default function CreateRoomForm() {
   //   const { toast } = useToast();
 
   const router = useRouter();
+  const pathName = usePathname();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),

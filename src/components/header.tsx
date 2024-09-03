@@ -1,4 +1,5 @@
 "use client";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -6,15 +7,22 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogIn, LogOut, SearchCode } from "lucide-react";
+import {
+  LayoutDashboard,
+  LogIn,
+  LogOut,
+  Router,
+  SearchCode,
+} from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import Link from "next/link";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
-import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 function HeaderMenu() {
   const session = useSession();
+  const router = useRouter();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -38,8 +46,12 @@ function HeaderMenu() {
               })
             }
           >
-            <LogIn size={20} className="mr-2" />
+            <LogOut size={20} className="mr-2" />
             Sign out
+          </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/your-rooms")}>
+            <LayoutDashboard size={20} className="mr-2" />
+            Your Rooms
           </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>

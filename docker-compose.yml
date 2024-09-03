@@ -4,7 +4,7 @@ services:
     restart: always
     container_name: dev-finder-db
     ports:
-      - 5435:5432
+      - 5432:5432
     environment:
       POSTGRES_USER: riyadh
       POSTGRES_PASSWORD: 1209
