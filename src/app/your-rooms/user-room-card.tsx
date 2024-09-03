@@ -11,13 +11,23 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Room } from "@/db/schema";
-import { Github, Trash } from "lucide-react";
+import { Github, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
 import { deleteRoom } from "./actions";
 
 const UserRoomCard = ({ room }: { room: Room }) => {
   return (
-    <Card className="flex flex-col justify-between">
+    <Card className="flex flex-col relative justify-between">
+      <Button
+        asChild
+        size={"icon"}
+        variant={"ghost"}
+        className="absolute top-1 right-1 size-6"
+      >
+        <Link href={`/edit-room/${room.id}`}>
+          <Pencil size={18} />
+        </Link>
+      </Button>
       <CardHeader>
         <CardTitle>{room.name}</CardTitle>
         <CardDescription>{room.description}</CardDescription>

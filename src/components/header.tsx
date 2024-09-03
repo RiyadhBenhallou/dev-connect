@@ -8,17 +8,16 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
 import {
+  Compass,
   LayoutDashboard,
-  LogIn,
   LogOut,
-  Router,
-  SearchCode,
+  SearchCode
 } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
-import { useRouter } from "next/navigation";
 
 function HeaderMenu() {
   const session = useSession();
@@ -53,6 +52,10 @@ function HeaderMenu() {
             <LayoutDashboard size={20} className="mr-2" />
             Your Rooms
           </DropdownMenuItem>
+          <DropdownMenuItem onClick={() => router.push("/browse")}>
+            <Compass size={20} className="mr-2" />
+            Browse
+          </DropdownMenuItem>
         </DropdownMenuGroup>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -61,8 +64,9 @@ function HeaderMenu() {
 
 const Header = () => {
   const session = useSession();
+  const isLoggedIn = !!session?.data?.user;
   return (
-    <header className="dark:bg-gray-900 bg-gray-100 py-2 container mx-auto">
+    <header className="dark:bg-gray-900 bg-gray-100 py-4 container mx-auto relative z-50">
       <div className="flex justify-between items-center">
         <div>
           <Link href={"/"}>
@@ -70,7 +74,7 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          {session?.data?.user ? (
+          {isLoggedIn ? (
             <HeaderMenu />
           ) : (
             <Button onClick={() => signIn("google")}>Sign In</Button>
