@@ -4,6 +4,9 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import Providers from "./providers";
 import NextTopLoader from "nextjs-toploader";
+import { Toaster } from "@/components/ui/toaster";
+
+// changed postgres folder permission with this command sudo chmod -R 755 /your/folder
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,7 +26,8 @@ export default function RootLayout({
         <Providers>
           <NextTopLoader />
           <Header />
-          {children}
+          <div className="container mx-auto">{children}</div>
+          <Toaster />
         </Providers>
       </body>
     </html>

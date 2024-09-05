@@ -5,7 +5,8 @@ import UserRoomCard from "./user-room-card";
 import { unstable_noStore } from "next/cache";
 import { auth } from "@/auth";
 import { redirect } from "next/navigation";
-
+import Image from "next/image";
+import image from "../../undraw_no_data_re_kwbl.svg";
 export default async function YourRooms() {
   const session = await auth();
   if (!session) {
@@ -26,6 +27,12 @@ export default async function YourRooms() {
           return <UserRoomCard key={room?.id} room={room} />;
         })}
       </div>
+      {rooms.length === 0 && (
+        <div className="flex flex-col gap-4 items-center justify-center w-full mt-8">
+          <Image src={image} width={200} height={200} alt="No data found" />
+          <span className="text-2xl text-gray-500">No Rooms Yet!</span>
+        </div>
+      )}
     </main>
   );
 }

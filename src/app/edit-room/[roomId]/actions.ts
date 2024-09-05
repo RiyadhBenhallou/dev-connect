@@ -6,6 +6,7 @@ import { Room, room, sessions } from "@/db/schema";
 import { getRoom } from "@/services/rooms";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
+import { redirect } from "next/navigation";
 
 export async function updateRoom(roomData: Omit<Room, "userId">) {
   const session = await auth();
@@ -21,4 +22,5 @@ export async function updateRoom(roomData: Omit<Room, "userId">) {
     .set({ ...roomData, userId: toUpdateRoom?.userId })
     .where(eq(room.id, roomData.id));
   revalidatePath(`/your-rooms`);
+  redirect("/your-rooms");
 }

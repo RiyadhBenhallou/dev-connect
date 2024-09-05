@@ -18,6 +18,7 @@ import { z } from "zod";
 import { Room } from "@/db/schema";
 import { usePathname, useRouter } from "next/navigation";
 import { updateRoom } from "./actions";
+import { toast } from "@/hooks/use-toast";
 // import { createRoom } from "./actions";
 // import { useToast } from "@/components/ui/use-toast";
 
@@ -46,12 +47,12 @@ export default function EditRoomForm({ room }: { room: Room }) {
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     await updateRoom({ id: room.id, ...values });
-    // toast({
-    //   title: "Room Created",
-    //   description: "Your room was successfully created",
-    // });
+    toast({
+      title: "Room Edited",
+      description: "Your room was successfully edited",
+    });
     // router.push(`/rooms/${room.id}`);
-    router.push(`/your-rooms`);
+    // router.push(`/your-rooms`);
   }
 
   return (

@@ -1,3 +1,4 @@
+"use client";
 import {
   AlertDialog,
   AlertDialogAction,
@@ -10,17 +11,18 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
-import { ReactNode } from "react";
+import { ReactNode, useState } from "react";
 
 export function DeletionDialog({
   children,
-  deleteRoomAction,
+  deletionAction,
 }: {
   children: ReactNode;
-  deleteRoomAction: () => Promise<void>;
+  deletionAction: () => Promise<void>;
 }) {
+  const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
-    <AlertDialog>
+    <AlertDialog open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
@@ -32,7 +34,7 @@ export function DeletionDialog({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={deleteRoomAction}>
+          <AlertDialogAction onClick={deletionAction}>
             Yes, Delete
           </AlertDialogAction>
         </AlertDialogFooter>

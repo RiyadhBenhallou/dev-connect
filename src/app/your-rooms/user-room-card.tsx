@@ -49,7 +49,7 @@ const UserRoomCard = ({ room }: { room: Room }) => {
         <Button asChild>
           <Link href={`/rooms/${room.id}`}>Join Room</Link>
         </Button>
-        <DeletionDialog deleteRoomAction={() => deleteRoom(room.id)}>
+        <DeletionDialog deletionAction={() => deleteRoom(room.id)}>
           <Button variant="destructive" size={"icon"}>
             <Trash size={19} />
           </Button>
