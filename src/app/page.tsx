@@ -1,4 +1,6 @@
 import { auth } from "@/auth";
+import FeaturesCards from "@/components/features-cards";
+import Footer from "@/components/footer";
 import { SearchCode } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -9,7 +11,7 @@ export default async function Example() {
     redirect("/browse");
   }
   return (
-    <div className="dark:bg-slate-800 bg-white">
+    <div className="dark:bg-slate-900 bg-white">
       <div className="relative isolate px-6 lg:px-8">
         <div
           aria-hidden="true"
@@ -60,6 +62,8 @@ export default async function Example() {
           />
         </div>
       </div>
+      <FeaturesCards />
+      <Footer />
     </div>
   );
 }

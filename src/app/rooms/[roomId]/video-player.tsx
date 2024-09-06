@@ -25,9 +25,7 @@ export default function VideoPlayer({
   session: Session;
 }) {
   const router = useRouter();
-  const token =
-    "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyX2lkIjoiOWI0M2Y0ZjEtNTBkNS00NGNjLWJiOWMtMzhjNTA5YTI1NmJlIn0.T2-D-JhmxYrNOzkwkwVkHoiWt07OwMyiefGr62kbik4";
-  const apiKey = "kh7fh56nwphf";
+  const apiKey = process.env.NEXT_PUBLIC_GET_STREAM_API_KEY as string;
   // const session = useSession();
   const [client, setClient] = useState<null | StreamVideoClient>(null);
   const [call, setCall] = useState<null | Call>(null);
@@ -49,7 +47,7 @@ export default function VideoPlayer({
       tokenProvider: () => generateTokenAction(),
     });
     setClient(client);
-    client.connectUser(user, token);
+    // client.connectUser(user, token);
     const call = client.call("default", room.id);
     call.join({ create: true });
     setCall(call);
@@ -59,7 +57,7 @@ export default function VideoPlayer({
       setClient(null);
       setCall(null);
     };
-  }, [session, room]);
+  }, [session, room, apiKey]);
   return (
     client &&
     call && (
