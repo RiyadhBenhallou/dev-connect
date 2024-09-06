@@ -132,7 +132,7 @@ const Header = () => {
           ) : status === "authenticated" ? (
             <HeaderMenu />
           ) : (
-            <Button onClick={() => signIn("google")}>Sign In</Button>
+            <Button onClick={() => signIn()}>Sign In</Button>
           )}
           <ModeToggle />
         </div>
