@@ -19,6 +19,8 @@ import { Room } from "@/db/schema";
 import { usePathname, useRouter } from "next/navigation";
 import { updateRoom } from "./actions";
 import { toast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 // import { createRoom } from "./actions";
 // import { useToast } from "@/components/ui/use-toast";
 
@@ -32,8 +34,7 @@ const formSchema = z.object({
 export default function EditRoomForm({ room }: { room: Room }) {
   //   const { toast } = useToast();
 
-  const router = useRouter();
-  const pathName = usePathname();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,7 +47,9 @@ export default function EditRoomForm({ room }: { room: Room }) {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
     await updateRoom({ id: room.id, ...values });
+    setIsLoading(false);
     toast({
       title: "Room Edited",
       description: "Your room was successfully edited",
@@ -131,7 +134,13 @@ export default function EditRoomForm({ room }: { room: Room }) {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit">
+          {isLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <span>Edit</span>
+          )}
+        </Button>
       </form>
     </Form>
   );

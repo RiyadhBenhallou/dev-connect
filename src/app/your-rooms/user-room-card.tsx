@@ -14,6 +14,7 @@ import { Room } from "@/db/schema";
 import { Github, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
 import { deleteRoom } from "./actions";
+import { toast } from "@/hooks/use-toast";
 
 const UserRoomCard = ({ room }: { room: Room }) => {
   return (
@@ -49,7 +50,15 @@ const UserRoomCard = ({ room }: { room: Room }) => {
         <Button asChild>
           <Link href={`/rooms/${room.id}`}>Join Room</Link>
         </Button>
-        <DeletionDialog deletionAction={() => deleteRoom(room.id)}>
+        <DeletionDialog
+          deletionAction={async () => {
+            await deleteRoom(room.id);
+            toast({
+              title: "Room Deleted Successfully",
+              description: "Your room was successfully Deleted",
+            });
+          }}
+        >
           <Button variant="destructive" size={"icon"}>
             <Trash size={19} />
           </Button>

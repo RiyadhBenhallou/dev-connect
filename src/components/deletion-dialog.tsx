@@ -11,6 +11,7 @@ import {
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
 import { Button } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import { ReactNode, useState } from "react";
 
 export function DeletionDialog({
@@ -21,6 +22,7 @@ export function DeletionDialog({
   deletionAction: () => Promise<void>;
 }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   return (
     <AlertDialog open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
@@ -34,8 +36,18 @@ export function DeletionDialog({
         </AlertDialogHeader>
         <AlertDialogFooter>
           <AlertDialogCancel>Cancel</AlertDialogCancel>
-          <AlertDialogAction onClick={deletionAction}>
-            Yes, Delete
+          <AlertDialogAction
+            onClick={async () => {
+              setIsLoading(true);
+              await deletionAction();
+              setIsLoading(false);
+            }}
+          >
+            {isLoading ? (
+              <Loader2 className="h-4 w-4 animate-spin" />
+            ) : (
+              <span>Yes, Delete</span>
+            )}
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

@@ -18,6 +18,8 @@ import { Input } from "@/components/ui/input";
 import { usePathname, useRouter } from "next/navigation";
 import { createRoom } from "./actions";
 import { toast, useToast } from "@/hooks/use-toast";
+import { Loader2 } from "lucide-react";
+import { useState } from "react";
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
@@ -31,6 +33,7 @@ export default function CreateRoomForm() {
 
   const router = useRouter();
   const pathName = usePathname();
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -43,7 +46,9 @@ export default function CreateRoomForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
+    setIsLoading(true);
     await createRoom(values);
+    setIsLoading(false);
     toast({
       title: "Room Created",
       description: "Your room was successfully created",
@@ -128,7 +133,13 @@ export default function CreateRoomForm() {
           )}
         />
 
-        <Button type="submit">Submit</Button>
+        <Button type="submit">
+          {isLoading ? (
+            <Loader2 className="h-4 w-4 animate-spin" />
+          ) : (
+            <span>Create</span>
+          )}
+        </Button>
       </form>
     </Form>
   );

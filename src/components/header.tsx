@@ -20,6 +20,7 @@ import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
+import { Skeleton } from "@/components/ui/skeleton";
 import { DeletionDialog } from "./deletion-dialog";
 import {
   AlertDialog,
@@ -36,7 +37,7 @@ import { useState } from "react";
 import { deleteAccountAction } from "./actions";
 
 function HeaderMenu() {
-  const session = useSession();
+  const { data: session, status } = useSession();
   const router = useRouter();
   const [isOpen, setIsOpen] = useState<boolean>(false);
   return (
@@ -71,13 +72,10 @@ function HeaderMenu() {
         <DropdownMenuTrigger asChild>
           <Button variant="outline" className="">
             <Avatar className="mr-2 size-8">
-              <AvatarImage
-                src={session?.data?.user?.image as string}
-                alt="@shadcn"
-              />
+              <AvatarImage src={session?.user?.image as string} alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            {session?.data?.user?.name}
+            {session?.user?.name}
           </Button>
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
@@ -113,8 +111,8 @@ function HeaderMenu() {
 }
 
 const Header = () => {
-  const session = useSession();
-  const isLoggedIn = !!session?.data?.user;
+  const { data: session, status } = useSession();
+  const isLoggedIn = !!session?.user;
   return (
     <header className="dark:bg-gray-900 bg-gray-100 py-4 relative z-50">
       <div className="flex justify-between items-center container mx-auto">
@@ -124,7 +122,18 @@ const Header = () => {
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          {isLoggedIn ? (
+          {/* {status === "loading" && isLoggedIn ? (
+            <Skeleton className="h-10 w-10 rounded-full" />
+          ) : (
+            <HeaderMenu />
+          )}
+          {status === "unauthenticated" && (
+            <Button onClick={() => signIn("google")}>Sign In</Button>
+          )} */}
+
+          {status === "loading" ? (
+            <Skeleton className="h-10 w-10 rounded-full" />
+          ) : status === "authenticated" ? (
             <HeaderMenu />
           ) : (
             <Button onClick={() => signIn("google")}>Sign In</Button>

@@ -6,7 +6,7 @@ import Providers from "./providers";
 import NextTopLoader from "nextjs-toploader";
 import { Toaster } from "@/components/ui/toaster";
 
-// changed postgres folder permission with this command sudo chmod -R 755 /your/folder
+// changed postgres folder permission with this command: sudo chmod -R 755 /your/folder
 
 const inter = Inter({ subsets: ["latin"] });
 
