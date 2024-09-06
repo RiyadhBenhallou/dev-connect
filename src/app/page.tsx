@@ -10,6 +10,7 @@ export default async function Example() {
   if (session) {
     redirect("/browse");
   }
+  console.log(process.env.AUTH_URL);
   return (
     <div className="dark:bg-slate-900 bg-white">
       <div className="relative isolate px-6 lg:px-8">
