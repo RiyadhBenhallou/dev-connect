@@ -116,8 +116,14 @@ const Header = () => {
     <header className="dark:bg-gray-900 bg-gray-100 py-4 relative z-50">
       <div className="flex justify-between items-center container mx-auto">
         <div>
-          <Link href={"/"}>
+          <Link href={"/"} className="flex gap-1 items-center text-lg group">
             <SearchCode className="size-10 text-indigo-600 hover:text-indigo-700" />
+            <span className="font-bold tracking-tight group-hover:text-indigo-600 transition-all duration-400">
+              <span className="text-indigo-600 group-hover:text-black dark:group-hover:text-white">
+                Dev
+              </span>
+              Connect
+            </span>
           </Link>
         </div>
         <div className="flex items-center gap-4">
