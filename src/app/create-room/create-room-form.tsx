@@ -67,7 +67,7 @@ export default function CreateRoomForm() {
             <FormItem>
               <FormLabel>Name</FormLabel>
               <FormControl>
-                <Input {...field} placeholder="Dev Finder Is Awesome" />
+                <Input {...field} placeholder="DevConnect Is Awesome" />
               </FormControl>
               <FormDescription>This is your public room name.</FormDescription>
               <FormMessage />
@@ -104,7 +104,7 @@ export default function CreateRoomForm() {
               <FormControl>
                 <Input
                   {...field}
-                  placeholder="https://github.com/webdevcody/dev-finder"
+                  placeholder="https://github.com/yourUserName/YourRepoName"
                 />
               </FormControl>
               <FormDescription>
