@@ -112,25 +112,15 @@ function HeaderMenu() {
 
 const Header = () => {
   const { data: session, status } = useSession();
-  const isLoggedIn = !!session?.user;
   return (
     <header className="dark:bg-gray-900 bg-gray-100 py-4 relative z-50">
       <div className="flex justify-between items-center container mx-auto">
         <div>
           <Link href={"/"}>
-            <SearchCode className="size-10 text-sky-500 hover:text-sky-700" />
+            <SearchCode className="size-10 text-indigo-600 hover:text-indigo-700" />
           </Link>
         </div>
         <div className="flex items-center gap-4">
-          {/* {status === "loading" && isLoggedIn ? (
-            <Skeleton className="h-10 w-10 rounded-full" />
-          ) : (
-            <HeaderMenu />
-          )}
-          {status === "unauthenticated" && (
-            <Button onClick={() => signIn("google")}>Sign In</Button>
-          )} */}
-
           {status === "loading" ? (
             <Skeleton className="h-10 w-10 rounded-full" />
           ) : status === "authenticated" ? (

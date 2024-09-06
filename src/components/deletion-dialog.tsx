@@ -42,12 +42,11 @@ export function DeletionDialog({
               await deletionAction();
               setIsLoading(false);
             }}
+            className={isLoading ? "opacity-70" : ""}
+            disabled={isLoading}
           >
-            {isLoading ? (
-              <Loader2 className="h-4 w-4 animate-spin" />
-            ) : (
-              <span>Yes, Delete</span>
-            )}
+            {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+            <span>Yes, Delete</span>
           </AlertDialogAction>
         </AlertDialogFooter>
       </AlertDialogContent>

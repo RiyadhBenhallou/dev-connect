@@ -28,11 +28,12 @@ export default async function Example() {
         <div className="mx-auto max-w-2xl py-12">
           <div className="hidden sm:mb-8 sm:flex sm:justify-center"></div>
           <div className="text-center">
-            <SearchCode className="size-40 inline-block text-sky-500" />
+            <SearchCode className="size-40 inline-block text-indigo-600" />
             <h1 className="text-4xl font-bold tracking-tight dark:text-white text-gray-900 sm:text-6xl">
               Stuck on a bug?,
               <br />
-              Find a Dev
+              <span className="text-indigo-600">Connect</span> with a{" "}
+              <span className="text-indigo-600">Dev</span>
             </h1>
             <p className="mt-6 text-lg leading-8 dark:text-gray-200 text-gray-600">
               Connect with experienced developers for live pair programming

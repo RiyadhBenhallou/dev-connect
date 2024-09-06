@@ -13,7 +13,7 @@ const FeatureCard = ({
   title: string;
   description: string;
 }) => (
-  <Card className="h-full">
+  <Card className="h-full border border-indigo-800">
     <CardHeader>
       <Icon className="h-8 w-8 text-primary mb-2" />
       <CardTitle>{title}</CardTitle>

@@ -134,12 +134,13 @@ export default function EditRoomForm({ room }: { room: Room }) {
           )}
         />
 
-        <Button type="submit">
-          {isLoading ? (
-            <Loader2 className="h-4 w-4 animate-spin" />
-          ) : (
-            <span>Edit</span>
-          )}
+        <Button
+          type="submit"
+          disabled={isLoading}
+          className={isLoading ? "opacity-70" : ""}
+        >
+          {isLoading && <Loader2 className="mr-2 h-4 w-4 animate-spin" />}
+          <span>Edit</span>
         </Button>
       </form>
     </Form>

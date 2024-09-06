@@ -56,6 +56,7 @@ const UserRoomCard = ({ room }: { room: Room }) => {
             toast({
               title: "Room Deleted Successfully",
               description: "Your room was successfully Deleted",
+              variant: "destructive",
             });
           }}
         >
