@@ -27,7 +27,7 @@ export default function SearchBar() {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
-    resolver: zodResolver(formSchema),
+    // resolver: zodResolver(formSchema),
     defaultValues: {
       query: query ?? "",
     },
@@ -51,20 +51,19 @@ export default function SearchBar() {
         onSubmit={form.handleSubmit(onSubmit)}
         className="w-full flex justify-center items-center pb-4"
       >
-        <div className="flex w-full">
+        <div className="flex w-full md:justify-center">
           <FormField
             control={form.control}
             name="query"
             render={({ field }) => (
-              <FormItem className="flex-grow">
+              <FormItem className="lg:justify-center w-[480px]">
                 <FormControl>
                   <Input
                     {...field}
                     placeholder="Search for a room..."
                     // className="rounded-r-none w-full focus:outline-none focus:ring-0 focus:border-transparent"
                     className={cn(
-                      "focus:outline-none focus:ring-0 focus:ring-offset-0",
-                      "border-gray-300 focus:border-gray-300"
+                      "focus:outline-none focus:ring-0 focus:ring-offset-0 rounded-r-none"
                     )}
                   />
                 </FormControl>

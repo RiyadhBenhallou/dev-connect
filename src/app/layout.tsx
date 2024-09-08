@@ -24,7 +24,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <Providers>
-          <NextTopLoader color="purple" />
+          <NextTopLoader color="blue" />
           <Header />
           <div className="container mx-auto">{children}</div>
           <Toaster />
