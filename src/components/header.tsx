@@ -70,16 +70,17 @@ function HeaderMenu() {
       </AlertDialog>
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
-          <Button variant="outline" className="">
-            <Avatar className="mr-2 size-8">
+          {/* <Button variant="outline" className=""> */}
+            <Avatar className="size-8 md:size-10 cursor-pointer -mr-2">
               <AvatarImage src={session?.user?.image as string} alt="@shadcn" />
               <AvatarFallback>CN</AvatarFallback>
             </Avatar>
-            {session?.user?.name}
-          </Button>
+          {/* </Button> */}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuGroup>
+              <span className="font-bold text-md ml-2">{session?.user?.name}</span>
+            <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() =>
                 signOut({

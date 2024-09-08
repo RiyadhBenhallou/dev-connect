@@ -71,8 +71,8 @@ export default function SearchBar() {
               </FormItem>
             )}
           />
-          <Button type="submit" size="icon" className="rounded-l-none">
-            <Search />
+          <Button type="submit" size="icon" className="rounded-l-none bg-indigo-600 hover:bg-indigo-700">
+            <Search className="text-white p-1 md:p-0" />
           </Button>
           {query && (
             <Button
@@ -83,7 +83,7 @@ export default function SearchBar() {
               variant="destructive"
               size="icon"
             >
-              <Delete />
+              <Delete className="p-1 md:p-0" />
             </Button>
           )}
         </div>
