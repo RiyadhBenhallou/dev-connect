@@ -23,26 +23,26 @@ export default async function RoonPage({
   }
 
   return (
-    <div className="grid grid-cols-4 min-h-screen">
-      <div className="col-span-3 p-4 pr-2">
-        <div className="rounded-lg border bg-card text-card-foreground shadow-sm drop-shadow-lg p-4">
+    <div className="flex flex-col lg:grid lg:grid-cols-4 min-h-screen">
+      <div className="lg:col-span-3 p-2 sm:p-4 lg:pr-2">
+        <div className="rounded-lg border bg-card text-card-foreground shadow-sm drop-shadow-lg p-2 sm:p-4">
           <VideoPlayer room={room} session={session!} />
         </div>
       </div>
-      <div className="col-span-1 p-4 pl-2">
+      <div className="lg:col-span-1 p-2 sm:p-4 lg:pl-2">
         <div className="rounded-lg border bg-card text-card-foreground shadow-sm drop-shadow-lg p-4 flex flex-col gap-4">
-          <h1 className="text-base font-bold">{room?.name}</h1>
+          <h1 className="text-base sm:text-lg font-bold">{room?.name}</h1>
           {room?.githubRepo && (
             <Link
               href={room.githubRepo}
-              className="flex gap-2 items-center text-sm"
+              className="flex gap-2 items-center text-sm sm:text-base"
               target="_blank"
             >
-              <Github size={18} />
+              <Github size={18} className="sm:w-5 sm:h-5" />
               GitHub Link
             </Link>
           )}
-          <p className="text-sm font-light">{room?.description}</p>
+          <p className="text-sm sm:text-base font-light">{room?.description}</p>
           <TagsList tagsString={room.tags} />
         </div>
       </div>

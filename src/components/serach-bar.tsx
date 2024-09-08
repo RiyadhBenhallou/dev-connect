@@ -12,11 +12,10 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-// import { createRoomAction } from "./actions";
 import { Delete, Search } from "lucide-react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useEffect } from "react";
-// import { useToast } from "@/components/ui/use-toast";
+import { cn } from "@/lib/utils";
 
 const formSchema = z.object({
   query: z.string().min(1).max(50),
@@ -28,7 +27,7 @@ export default function SearchBar() {
   const router = useRouter();
 
   const form = useForm<z.infer<typeof formSchema>>({
-    // resolver: zodResolver(formSchema),
+    resolver: zodResolver(formSchema),
     defaultValues: {
       query: query ?? "",
     },
@@ -45,44 +44,50 @@ export default function SearchBar() {
       router.push("/browse");
     }
   }
+
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className="w-full flex justify-center pb-4 gap-2"
+        className="w-full flex justify-center items-center pb-4"
       >
-        <FormField
-          control={form.control}
-          name="query"
-          render={({ field }) => (
-            <FormItem>
-              <FormControl>
-                <Input
-                  {...field}
-                  placeholder="Search for a room..."
-                  className="w-[400px]"
-                />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-
-        <Button type="submit" size={"icon"}>
-          <Search />
-        </Button>
-        {query && (
-          <Button
-            onClick={() => {
-              form.setValue("query", "");
-              router.push("/browse");
-            }}
-            variant={"destructive"}
-            size={"icon"}
-          >
-            <Delete />
+        <div className="flex w-full">
+          <FormField
+            control={form.control}
+            name="query"
+            render={({ field }) => (
+              <FormItem className="flex-grow">
+                <FormControl>
+                  <Input
+                    {...field}
+                    placeholder="Search for a room..."
+                    // className="rounded-r-none w-full focus:outline-none focus:ring-0 focus:border-transparent"
+                    className={cn(
+                      "focus:outline-none focus:ring-0 focus:ring-offset-0",
+                      "border-gray-300 focus:border-gray-300"
+                    )}
+                  />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <Button type="submit" size="icon" className="rounded-l-none">
+            <Search />
           </Button>
-        )}
+          {query && (
+            <Button
+              onClick={() => {
+                form.setValue("query", "");
+                router.push("/browse");
+              }}
+              variant="destructive"
+              size="icon"
+            >
+              <Delete />
+            </Button>
+          )}
+        </div>
       </form>
     </Form>
   );

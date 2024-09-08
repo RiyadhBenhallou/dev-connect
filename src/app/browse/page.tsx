@@ -21,24 +21,24 @@ export default async function Home({
   unstable_noStore();
   const rooms = await getRooms(query);
   return (
-    <main className="min-h-screen p-24">
-      <div className="flex justify-between items-center mb-2">
-        <h1 className="text-4xl">Find Dev Rooms</h1>
-        <Button>
+    <main className="min-h-screen p-4 sm:p-8 md:p-16 lg:p-24">
+      <div className="flex flex-col sm:flex-row justify-between items-center mb-4 sm:mb-2">
+        <h1 className="text-2xl sm:text-3xl md:text-4xl mb-2 sm:mb-0">Find Dev Rooms</h1>
+        <Button className="w-full sm:w-auto">
           <Link href={"/create-room"}>Create a room</Link>
         </Button>
       </div>
       <SearchBar />
-      <div className="grid grid-cols-3 gap-4">
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
         {rooms.map((room) => {
           return <RoomCard key={room?.id} room={room} />;
         })}
       </div>
       {rooms.length === 0 && (
-        <div className="flex flex-col gap-4 items-center justify-center w-full mt-24">
-          <Image src={image} width={200} height={200} alt="No data found" />
-          <span className="text-2xl text-gray-500 font-light">
-            No Rooms Yet!
+        <div className="flex flex-col gap-4 items-center justify-center w-full mt-12 sm:mt-24">
+          <Image src={image} width={150} height={150} alt="No data found" className="w-32 h-32 sm:w-48 sm:h-48 lg:w-64 lg:h-64" />
+          <span className="text-xl sm:text-2xl text-gray-500 font-light text-center">
+            No Rooms Found!
           </span>
         </div>
       )}
