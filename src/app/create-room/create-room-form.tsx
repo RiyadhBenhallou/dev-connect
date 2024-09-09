@@ -1,8 +1,5 @@
 "use client";
 
-import { z } from "zod";
-import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -14,12 +11,15 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm } from "react-hook-form";
+import { z } from "zod";
 // import { createRoomAction } from "./actions";
-import { usePathname, useRouter } from "next/navigation";
-import { createRoom } from "./actions";
-import { toast, useToast } from "@/hooks/use-toast";
+import { toast } from "@/hooks/use-toast";
 import { Loader2 } from "lucide-react";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useTransition } from "react";
+import { createRoom } from "./actions";
 
 const formSchema = z.object({
   name: z.string().min(1).max(50),
@@ -33,7 +33,7 @@ export default function CreateRoomForm() {
 
   const router = useRouter();
   const pathName = usePathname();
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, startTransition] = useTransition();
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -46,15 +46,14 @@ export default function CreateRoomForm() {
   });
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
-    setIsLoading(true);
-    await createRoom(values);
-    setIsLoading(false);
-    toast({
-      title: "Room Created",
-      description: "Your room was successfully created",
+    // setIsLoading(true);
+    startTransition(async () => {
+      await createRoom(values);
+      toast({
+        title: "Room Created",
+        description: "Your room was successfully created",
+      });
     });
-    // router.push(`/rooms/${room.id}`);
-    // router.push(`/`);
   }
 
   return (

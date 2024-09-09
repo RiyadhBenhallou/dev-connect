@@ -10,9 +10,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from "@/components/ui/alert-dialog";
-import { Button } from "@/components/ui/button";
 import { Loader2 } from "lucide-react";
-import { ReactNode, useState } from "react";
+import { ReactNode, useState, useTransition } from "react";
 
 export function DeletionDialog({
   children,
@@ -22,7 +21,7 @@ export function DeletionDialog({
   deletionAction: () => Promise<void>;
 }) {
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [isLoading, startTransition] = useTransition();
   return (
     <AlertDialog open={isOpen} onOpenChange={(open) => setIsOpen(open)}>
       <AlertDialogTrigger asChild>{children}</AlertDialogTrigger>
@@ -38,9 +37,9 @@ export function DeletionDialog({
           <AlertDialogCancel>Cancel</AlertDialogCancel>
           <AlertDialogAction
             onClick={async () => {
-              setIsLoading(true);
-              await deletionAction();
-              setIsLoading(false);
+              startTransition(async () => {
+                await deletionAction();
+              });
             }}
             className={isLoading ? "opacity-70" : ""}
             disabled={isLoading}

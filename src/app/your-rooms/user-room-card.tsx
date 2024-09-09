@@ -11,10 +11,10 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Room } from "@/db/schema";
+import { toast } from "@/hooks/use-toast";
 import { Github, Pencil, Trash } from "lucide-react";
 import Link from "next/link";
 import { deleteRoom } from "./actions";
-import { toast } from "@/hooks/use-toast";
 
 const UserRoomCard = ({ room }: { room: Room }) => {
   return (
@@ -31,7 +31,9 @@ const UserRoomCard = ({ room }: { room: Room }) => {
       </Button>
       <CardHeader>
         <CardTitle className="text-lg sm:text-xl">{room.name}</CardTitle>
-        <CardDescription className="text-sm sm:text-base">{room.description}</CardDescription>
+        <CardDescription className="text-sm sm:text-base">
+          {room.description}
+        </CardDescription>
       </CardHeader>
       <CardContent className="flex flex-col gap-2">
         {room.githubRepo && (
@@ -47,7 +49,10 @@ const UserRoomCard = ({ room }: { room: Room }) => {
         <TagsList tagsString={room.tags} />
       </CardContent>
       <CardFooter className="flex items-center gap-2 mt-auto">
-        <Button asChild className="text-xs sm:text-sm py-1 px-2 sm:py-2 sm:px-4">
+        <Button
+          asChild
+          className="text-xs sm:text-sm py-1 px-2 sm:py-2 sm:px-4"
+        >
           <Link href={`/rooms/${room.id}`}>Join Room</Link>
         </Button>
         <DeletionDialog
