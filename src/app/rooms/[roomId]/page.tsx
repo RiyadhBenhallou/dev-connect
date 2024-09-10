@@ -6,8 +6,10 @@ import { unstable_noStore } from "next/cache";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import VideoPlayer from "./video-player";
+import { db } from "@/db";
+import { notification } from "@/db/schema";
 
-export default async function RoonPage({
+export default async function RoomPage({
   params: { roomId },
 }: {
   params: { roomId: string };
@@ -15,6 +17,16 @@ export default async function RoonPage({
   unstable_noStore();
   const room = await getRoom(roomId);
   const session = await auth();
+  if (room?.userId !== session?.user?.id) {
+    console.log(session);
+    await db.insert(notification).values({
+      userId: room?.userId as string,
+      message: `${session?.user?.name?.split(" ")[0]} just entered "${
+        room?.name
+      }" room`,
+      redirectUrl: `/rooms/${room?.id}`,
+    });
+  }
   console.log(session);
   console.log(room);
 

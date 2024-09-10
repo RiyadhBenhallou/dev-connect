@@ -5,9 +5,11 @@ import {
   primaryKey,
   integer,
   uuid,
+  boolean,
 } from "drizzle-orm/pg-core";
 import { sql } from "drizzle-orm";
 import type { AdapterAccount } from "next-auth/adapters";
+import { redirect } from "next/dist/server/api-utils";
 
 export const users = pgTable("user", {
   id: text("id").notNull().primaryKey(),
@@ -75,4 +77,19 @@ export const room = pgTable("room", {
   githubRepo: text("githubRepo"),
 });
 
+export const notification = pgTable("notification", {
+  id: uuid("id")
+    .default(sql`gen_random_uuid()`)
+    .notNull()
+    .primaryKey(),
+  userId: text("userId")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  message: text("message").notNull(),
+  redirectUrl: text("redirect_url").notNull(),
+  isRead: boolean("is_read").$defaultFn(() => false),
+  createdAt: timestamp("created_at").defaultNow(),
+});
+
 export type Room = typeof room.$inferSelect;
+export type Notification = typeof notification.$inferSelect;

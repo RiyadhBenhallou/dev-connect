@@ -17,7 +17,7 @@ import {
 } from "lucide-react";
 import { signIn, signOut, useSession } from "next-auth/react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
+import { redirect, useRouter } from "next/navigation";
 import { ModeToggle } from "./mode-toggle";
 import { Button } from "./ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -35,6 +35,8 @@ import {
 } from "@/components/ui/alert-dialog";
 import { useState } from "react";
 import { deleteAccountAction } from "./actions";
+import Notifications from "./notifications";
+// import Notifications from "./notifications";
 
 function HeaderMenu() {
   const { data: session, status } = useSession();
@@ -71,15 +73,17 @@ function HeaderMenu() {
       <DropdownMenu>
         <DropdownMenuTrigger asChild>
           {/* <Button variant="outline" className=""> */}
-            <Avatar className="size-8 md:size-10 cursor-pointer -mr-2">
-              <AvatarImage src={session?.user?.image as string} alt="@shadcn" />
-              <AvatarFallback>CN</AvatarFallback>
-            </Avatar>
+          <Avatar className="size-8 md:size-10 cursor-pointer">
+            <AvatarImage src={session?.user?.image as string} alt="@shadcn" />
+            <AvatarFallback>CN</AvatarFallback>
+          </Avatar>
           {/* </Button> */}
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuGroup>
-              <span className="font-bold text-md ml-2">{session?.user?.name}</span>
+            <span className="font-bold text-md ml-2">
+              {session?.user?.name}
+            </span>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() =>
@@ -127,11 +131,14 @@ const Header = () => {
             </span>
           </Link>
         </div>
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
           {status === "loading" ? (
             <Skeleton className="h-10 w-10 rounded-full" />
           ) : status === "authenticated" ? (
-            <HeaderMenu />
+            <>
+              <Notifications />
+              <HeaderMenu />
+            </>
           ) : (
             <Button onClick={() => signIn()}>Sign In</Button>
           )}
