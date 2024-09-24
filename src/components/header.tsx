@@ -81,9 +81,23 @@ function HeaderMenu() {
         </DropdownMenuTrigger>
         <DropdownMenuContent className="w-56">
           <DropdownMenuGroup>
-            <span className="font-bold text-md ml-2">
-              {session?.user?.name}
-            </span>
+            <div className="flex gap-2 items-center">
+              <Avatar className="size-2 md:size-10 cursor-pointer">
+                <AvatarImage
+                  src={session?.user?.image as string}
+                  alt="@shadcn"
+                />
+                <AvatarFallback>CN</AvatarFallback>
+              </Avatar>
+              <div className="flex flex-col gap-1">
+                <span className="font-bold text-xs ml-2">
+                  {session?.user?.name}
+                </span>
+                <span className="font text-[10px] ml-2">
+                  {session?.user?.email}
+                </span>
+              </div>
+            </div>
             <DropdownMenuSeparator />
             <DropdownMenuItem
               onClick={() =>
