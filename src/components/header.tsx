@@ -82,7 +82,7 @@ function HeaderMenu() {
         <DropdownMenuContent className="w-56">
           <DropdownMenuGroup>
             <div className="flex gap-2 items-center">
-              <Avatar className="size-2 md:size-10 cursor-pointer">
+              <Avatar className="size-8 md:size-10 cursor-pointer">
                 <AvatarImage
                   src={session?.user?.image as string}
                   alt="@shadcn"
