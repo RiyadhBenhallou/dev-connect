@@ -51,11 +51,13 @@ export default async function Home({
           </span>
         </div>
       )}
-      <PaginationControl
-        current={page || 1}
-        hasNextPage={rooms.length === LIMIT}
-        query={query}
-      />
+      {rooms.length !== 0 && (
+        <PaginationControl
+          current={page || 1}
+          hasNextPage={rooms.length === LIMIT}
+          query={query}
+        />
+      )}
     </main>
   );
 }
