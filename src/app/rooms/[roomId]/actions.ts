@@ -10,10 +10,12 @@ export async function generateTokenAction() {
     throw new Error("No session found");
   }
 
-  const api_key = "kh7fh56nwphf";
-  const api_secret =
-    "sq2gfnbpayhaqf9nfnveubz9wcppxsn4rk6jsj5gxrbst6vstvehrf2y3pk4kzg8";
-  const serverClient = StreamChat.getInstance(api_key, api_secret);
+  const api_key = process.env.STREAMCHAT_API_KEY;
+  const api_secret = process.env.STREAMCHAT_API_SECRET;
+  const serverClient = StreamChat.getInstance(
+    api_key as string,
+    api_secret as string
+  );
   const token = serverClient.createToken(session?.user?.id!);
   //   console.log("token", token);
   return token;
